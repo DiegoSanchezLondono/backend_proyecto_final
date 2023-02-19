@@ -17,5 +17,15 @@
     "jsonwebtoken": "9.0.0",
     "mongoose": "6.9.2",
     "nodemon": "2.0.20"
-  }
+  },
+  "description": "",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiegoSanchezLondono/backend_proyecto_final.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DiegoSanchezLondono/backend_proyecto_final/issues"
+  },
+  "homepage": "https://github.com/DiegoSanchezLondono/backend_proyecto_final#readme"
 }
