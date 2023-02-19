@@ -121,7 +121,6 @@ UsersController.newUser = async (req, res) => {
             email: req.body.email,
             password: password,
             country: req.body.country,
-            creditCard: req.body.creditCard
             
         })
 
