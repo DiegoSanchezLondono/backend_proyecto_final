@@ -10,11 +10,11 @@ const UsersController = {};
 
 UsersController.getAllUsers = async (req, res) => {
 
-     try {
-       // let userAdmin = req.user.usuario[0];
+    try {
+        // let userAdmin = req.user.usuario[0];
         let result = await User.find({});
 
-        if (result.length > 0){
+        if (result.length > 0) {
             res.send(result)
         } else {
             res.send({ "Message": "Lo sentimos, no hemos encontrado ningún usuario." })
@@ -51,10 +51,10 @@ UsersController.getUsersByName = async (req, res) => {
     const name = req.params.name;
 
     try {
-        const Users = await User.find({name: name})
-        if(Users.length === 0){
+        const Users = await User.find({ name: name })
+        if (Users.length === 0) {
             res.status(404)
-            res.json({error: "Usuario No Encontrado", id:'xxxxxx'})
+            res.json({ error: "Usuario No Encontrado", id: 'xxxxxx' })
         }
         res.send(Users)
     } catch (error) {
@@ -73,7 +73,7 @@ UsersController.updateUser = async (req, res) => {
             //Campos a cambiar
             {
                 name: newName
-             
+
             }).setOptions({ returnDocument: 'after' })
         //con setOptions en este caso voy a exigir que me devuelva el documento modificado
 
@@ -89,20 +89,20 @@ UsersController.deleteUser = async (req, res) => {
     let userAdmin = req.user.usuario[0];
 
     try {
-        if(userAdmin.email !== email){
+        if (userAdmin.email !== email) {
             let deleted = await User.findOneAndDelete({
                 email: email
             })
 
-        if (deleted) {
-            res.send({ "Message": `El usuario ${deleted.name} ${deleted.surname} se ha eliminado con éxito` })
-        }  else {
-            res.send({"Message": "No hemos encontrado al usuario a borrar"});
-        }
-    }else{
-        res.send({"Message": `Eliminacion no possible`});
+            if (deleted) {
+                res.send({ "Message": `El usuario ${deleted.name} ${deleted.surname} se ha eliminado con éxito` })
+            } else {
+                res.send({ "Message": "No hemos encontrado al usuario a borrar" });
+            }
+        } else {
+            res.send({ "Message": `Eliminacion no possible` });
 
-    }
+        }
     } catch (error) {
         console.log("Error al eliminar el usuario", error);
 
@@ -129,7 +129,7 @@ UsersController.newUser = async (req, res) => {
         }
 
     } catch (error) {
-        res.send({"message": `Hubo un error al registrar al usuario, intentelo de nuevo`})
+        res.send({ "message": `Hubo un error al registrar al usuario, intentelo de nuevo` })
     }
 
 };
@@ -138,20 +138,18 @@ UsersController.loginUser = async (req, res) => {
     try {
 
         let userFound = await User.find({
-            email: req.body.email,
-            password: req.body.password
+            email: req.body.email
         })
         if (userFound) {
-            
             if (userFound[0].email === undefined) {
                 //No hemos encontrado al usuario...mandamos un mensaje
-                res.send("Usuario o password incorrecto");
+                res.send({"message":`Usuario o password incorrectos`});
             } else {
-               
+
                 //Hemos encontrado al usuario, vamos a ver si el pass es correcto
-               
+
                 if (bcrypt.compareSync(req.body.password, userFound[0].password)) {
-                    
+
                     let token = jsonwebtoken.sign({ usuario: userFound }, authConfig.SECRET, {
                         expiresIn: authConfig.EXPIRES
                     });
@@ -164,16 +162,14 @@ UsersController.loginUser = async (req, res) => {
                     })
 
                 } else {
-              
-                    res.send("Usuario o password incorrecto");
+
+                    res.send({"message":`Usuario o password incorrectos`});
                 }
             }
 
         }
-
-
     } catch (error) {
-        res.send("Email o password incorrectos");
+        res.send({"message":`Email o password incorrectos`});
     }
 }
 
