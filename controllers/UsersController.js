@@ -111,17 +111,17 @@ UsersController.deleteUser = async (req, res) => {
 };
 UsersController.newUser = async (req, res) => {
 
-    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
+    const password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
 
     try {
 
-        let user = await User.create({
+        const user = await User.create({
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,
             password: password,
             country: req.body.country,
-            
+            rol: req.body.rol
         })
 
         if (user) {
@@ -129,7 +129,7 @@ UsersController.newUser = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error)
+        res.send({"message": `Hubo un error al registrar al usuario, intentelo de nuevo`})
     }
 
 };
@@ -138,10 +138,9 @@ UsersController.loginUser = async (req, res) => {
     try {
 
         let userFound = await User.find({
-            email: req.body.email
+            email: req.body.email,
+            password: req.body.password
         })
-
-        
         if (userFound) {
             
             if (userFound[0].email === undefined) {

@@ -4,6 +4,10 @@ const express = require('express');
 //ejecuto el método Router() de express (siempre igual)
 const router = express.Router();
 
+//Importo el middleware de auth...
+const auth = require('../middlewares/auth');
+const isAdmin = require('../middlewares/isAdmin');
+
 
 const UsersController = require('../controllers/UsersController');
 
