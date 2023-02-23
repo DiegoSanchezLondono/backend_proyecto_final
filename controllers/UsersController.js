@@ -101,11 +101,9 @@ UsersController.deleteUser = async (req, res) => {
             }
         } else {
             res.send({ "Message": `Eliminacion no possible` });
-
         }
     } catch (error) {
-        console.log("Error al eliminar el usuario", error);
-
+        res.send({ "Message": `Error al eliminar al usuario` });
     }
 
 };
