@@ -24,25 +24,31 @@ UsersController.getAllUsers = async (req, res) => {
     }
 }
 UsersController.postUserById = async (req, res) => {
-
-    //Este id es el id que ha venido por parámetro en el endpoint (url)
+    
+    try {
+            //Este id es el id que ha venido por parámetro en el endpoint (url)
     let _id = req.body._id;
     let user = req.user.usuario[0];
 
     //Estos datos de user son lo que el middleware auth ha decodificado del token ;)
-    if (_id !== user._id) {
+    if (_id == user._id) {
 
         res.send({ "Msg": "Acceso no autorizado" });
     } else {
 
         res.send({
 
-            "id": user._id,
+            "_id": user._id,
             "name": user.name,
             "surname": user.surname,
             "email": user.email,
+            "country": user.country
 
         });
+    }
+    }catch (error) {
+        res.send({"message": `Ha habido algun error`});
+        // console.log(error);
     }
 }
 UsersController.getUsersByName = async (req, res) => {
@@ -88,7 +94,7 @@ UsersController.deleteUser = async (req, res) => {
     let userAdmin = req.user.usuario[0];
 
     try {
-        if (userAdmin.email !== email) {
+        if (userAdmin.email === email) {
             let deleted = await User.findOneAndDelete({
                 email: email
             })
@@ -99,7 +105,7 @@ UsersController.deleteUser = async (req, res) => {
                 res.send({ "Message": "No hemos encontrado al usuario a borrar" });
             }
         } else {
-            res.send({ "Message": `Eliminacion no possible` });
+            res.send({ "Message": `Eliminacion no posible` });
         }
     } catch (error) {
         res.send({ "Message": `Error al eliminar al usuario` });
