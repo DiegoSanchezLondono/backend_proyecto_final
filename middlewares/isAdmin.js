@@ -11,7 +11,7 @@ const  User  = require('../models/user.js');
     User.findOne({
 
         //..un usuario con esa id
-       name : 'Diego'
+       name : 'diego'
        //Si lo encuentro..
     }).then(foundUser => {
        console.log(foundUser, 'Usuarioaaa');
@@ -25,8 +25,6 @@ const  User  = require('../models/user.js');
              res.send(`Acceso Prohibido`)
         }
      }).catch(error => {
-       console.log(error, 'errorrrrrrr');
-         res.send(`Introduce un id de usuario valido`);
+         res.send({"message": `Introduce un id de usuario valido`, error});
      })
-
 };

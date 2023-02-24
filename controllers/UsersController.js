@@ -11,7 +11,6 @@ const UsersController = {};
 UsersController.getAllUsers = async (req, res) => {
 
     try {
-        // let userAdmin = req.user.usuario[0];
         let result = await User.find({});
 
         if (result.length > 0) {
@@ -19,9 +18,9 @@ UsersController.getAllUsers = async (req, res) => {
         } else {
             res.send({ "Message": "Lo sentimos, no hemos encontrado ningún usuario." })
         }
-
     } catch (error) {
-        console.log(error);
+        res.send({"message": `Ha habido algun error`});
+        // console.log(error);
     }
 }
 UsersController.postUserById = async (req, res) => {
@@ -109,11 +108,11 @@ UsersController.deleteUser = async (req, res) => {
 };
 UsersController.newUser = async (req, res) => {
 
-    const password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
+    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
 
     try {
 
-        const user = await User.create({
+        let user = await User.create({
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,
