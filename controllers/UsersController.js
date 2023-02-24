@@ -23,50 +23,6 @@ UsersController.getAllUsers = async (req, res) => {
         // console.log(error);
     }
 }
-UsersController.postUserById = async (req, res) => {
-    
-    try {
-            //Este id es el id que ha venido por parámetro en el endpoint (url)
-    let _id = req.body._id;
-    let user = req.user.usuario[0];
-
-    //Estos datos de user son lo que el middleware auth ha decodificado del token ;)
-    if (_id == user._id) {
-
-        res.send({ "Msg": "Acceso no autorizado" });
-    } else {
-
-        res.send({
-
-            "_id": user._id,
-            "name": user.name,
-            "surname": user.surname,
-            "email": user.email,
-            "country": user.country
-
-        });
-    }
-    }catch (error) {
-        res.send({"message": `Ha habido algun error`});
-        // console.log(error);
-    }
-}
-UsersController.getUsersByName = async (req, res) => {
-
-    const name = req.params.name;
-
-    try {
-        const Users = await User.find({ name: name })
-        if (Users.length === 0) {
-            res.status(404)
-            res.json({ error: "Usuario No Encontrado", id: 'xxxxxx' })
-        }
-        res.send(Users)
-    } catch (error) {
-        res.send(500);
-        // console.log(error);
-    }
-}
 UsersController.updateUser = async (req, res) => {
     let email = req.body.email;
     let newName = req.body.name;
@@ -83,10 +39,11 @@ UsersController.updateUser = async (req, res) => {
         //con setOptions en este caso voy a exigir que me devuelva el documento modificado
 
         if (updated) {
-            res.send(`Usuario actualizado con éxito`)
+            res.send({"message": `Usuario actualizado con éxito`})
         }
     } catch (error) {
-        console.log("Error updating user data", error);
+        res.send({"message": `Ha habido algun error`});
+        // console.log("Error updating user data", error);
     }
 }
 UsersController.deleteUser = async (req, res) => {
