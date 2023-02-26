@@ -1,5 +1,4 @@
 
-
 const Pictogram = require('../models/pictogram');
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
@@ -13,7 +12,6 @@ PictogramsController.newPictogram = async (req, res) => {
     let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
 
     try {
-
         let pictogram = await Pictogram.create({
             categories: req.body.categories,
             tags: req.body.tags,
@@ -25,7 +23,6 @@ PictogramsController.newPictogram = async (req, res) => {
         if (pictogram) {
             res.send({ "Message": `El pictograma ${pictogram.categories} se ha añadido con éxito` })
         }
-
     } catch (error) {
         res.send({ "message": `Hubo un error al registrar el pictograma, intentelo de nuevo` })
     }

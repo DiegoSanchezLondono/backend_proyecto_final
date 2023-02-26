@@ -13,6 +13,9 @@ const PictogramsController = require('../controllers/PictogramsController');
 
 //Endpoints
 
-router.post("/register", PictogramsController.newPictogram); 
-router.get("/pictograms", PictogramsController.getAllPictograms);
 router.post("/pictogram/id",PictogramsController.postPictogramById);
+
+//Endpoints con middleware auth/isAdmin
+
+router.post("/register",auth, isAdmin, PictogramsController.newPictogram); 
+router.get("/pictograms",auth, isAdmin, PictogramsController.getAllPictograms);
