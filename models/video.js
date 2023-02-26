@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const videoSchema = new Schema ({
     name: {
-        type: string,
+        type: String,
         required: true,
     },
     date: {
@@ -14,4 +14,4 @@ const videoSchema = new Schema ({
 });
 
 const Video = mongoose.model("Video", videoSchema);
-module.exports = Videogram;
+module.exports = Video;
