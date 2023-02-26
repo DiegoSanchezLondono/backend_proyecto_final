@@ -49,11 +49,11 @@ FavoritesController.getAllFavorites = async (req, res) => {
         console.log(error);
     }
 }
-FavoritesController.getUserFavorites = async (req, res) => {
-    let id = req.params.id
+FavoritesController.postUserFavorites = async (req, res) => {
+    let id = req.body.id
     try{
 
-        let result = await Favorito.find({userId: id})
+        let result = await Favorite.find({userId: id})
 
         if (result.length > 0){
             res.send(result)

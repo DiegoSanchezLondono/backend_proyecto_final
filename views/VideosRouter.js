@@ -19,3 +19,7 @@ router.post("/video/id",VideosController.postVideoById);
 
 router.post("/register",auth, isAdmin, VideosController.newVideo); 
 router.get("/videos",auth, isAdmin, VideosController.getAllVideos);
+
+
+//Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
+module.exports = router;

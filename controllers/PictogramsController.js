@@ -9,19 +9,16 @@ const PictogramsController = {};
 
 PictogramsController.newPictogram = async (req, res) => {
 
-    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
-
     try {
         let pictogram = await Pictogram.create({
-            categories: req.body.categories,
-            tags: req.body.tags,
             keyword: req.body.keyword,
             meaning: req.body.meaning,
-            password: password
+            categories: req.body.categories,
+            tags: req.body.tags
         })
 
         if (pictogram) {
-            res.send({ "Message": `El pictograma ${pictogram.categories} se ha añadido con éxito` })
+            res.send({ "Message": `El pictograma ${pictogram.keyword} se ha añadido con éxito` })
         }
     } catch (error) {
         res.send({ "message": `Hubo un error al registrar el pictograma, intentelo de nuevo` })

@@ -3,22 +3,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pictogramSchema = new Schema ({
-   categories: {
+     keyword: {
+          type: String,
+          required: true
+     },
+     meaning: {
+          type: String,
+          required: true
+     },
+     categories: {
         type: Array,
         required: true
-   },
-   tags: {
+     },
+     tags: {
         type: Array,
         required: true
-   },
-   keyword: {
-        type: String,
-        required: true
-   },
-   meaning: {
-        type: String,
-        required: true
-   }
+     }
 });
 
 const Pictogram = mongoose.model("Pictogram", pictogramSchema);
