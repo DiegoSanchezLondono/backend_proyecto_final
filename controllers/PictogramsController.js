@@ -8,20 +8,28 @@ const authConfig = require('../config/auth');
 const PictogramsController = {};
 
 PictogramsController.newPictogram = async (req, res) => {
-
+    let _id = req.body._id;
+    let user = req.user.usuario[0];
     try {
-        let pictogram = await Pictogram.create({
-            keyword: req.body.keyword,
-            meaning: req.body.meaning,
-            categories: req.body.categories,
-            tags: req.body.tags
-        })
-
-        if (pictogram) {
-            res.send({ "Message": `El pictograma ${pictogram.keyword} se ha añadido con éxito` })
+        if(_id !== user._id){
+            let pictogram = await Pictogram.create({
+                keyword: req.body.keyword,
+                meaning: req.body.meaning,
+                categories: req.body.categories,
+                tags: req.body.tags
+            })
+    
+            if (pictogram) {
+                res.send({ "Message": `El pictograma ${pictogram.keyword} se ha añadido con éxito` })
+            }else {
+                res.send({"Message": "No hemos encontrado el pictograma a añadir"});
+            }
+        }else{
+            res.send({"Message": `No es posible añadir pictogramas`});
+    
         }
-    } catch (error) {
-        res.send({ "message": `Hubo un error al registrar el pictograma, intentelo de nuevo` })
+        }catch (error) {
+        res.send({ "message": `No puede ejecutar esta acción` })
     }
 
 };

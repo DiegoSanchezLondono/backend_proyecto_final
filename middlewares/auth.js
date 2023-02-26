@@ -1,6 +1,5 @@
 
-
- //Importo la clase jsonwebtoken
+//Importo la clase jsonwebtoken
  const jsonwebtoken = require('jsonwebtoken');
 
  //Importo el fichero de configuración ../config/auth para darle los parámetros de encriptado al token
@@ -30,7 +29,6 @@
                  //En req.user guardamos el usuario decodificado correctamente
                  
                  req.user = decoded;
-                 console.log(req.user, 'que habra');
                  
                  //Activa el next() del middleware que actúa como un return, haciendo el que continúe en el endpoint donde lo metimos, y ejecutando así su función controladora
                  next();

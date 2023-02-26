@@ -13,12 +13,12 @@ const VideosController = require('../controllers/VideosController');
 
 //Endpoints
 
-router.post("/video/id",VideosController.postVideoById);
+router.post("/id",VideosController.postVideoById);
 
 //Endpoints con middleware auth/isAdmin
 
 router.post("/register",auth, isAdmin, VideosController.newVideo); 
-router.get("/videos",auth, isAdmin, VideosController.getAllVideos);
+router.get("/",auth, isAdmin, VideosController.getAllVideos);
 
 
 //Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)

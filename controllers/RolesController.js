@@ -18,20 +18,22 @@ RolesController.getAllRoles = async (req, res) => {
         }
     } catch (error) {
         res.send({ "message": `Ha habido algun error` });
-        // console.log(error);
+         // console.log(error);
     }
 }
-
-RolesController.getUserRol = async (req, res) => {
+RolesController.rolAdmin = async (req, res) => {
+    let name = req.body.rol;
+    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
 
     try {
 
         let rol = await rol.create({
-            rol: req.body.rol
+           name:name,
+           password:password
         })
 
         if (rol) {
-            res.send({ "Message": `El rol ${rol.rol} se ha añadido con éxito` })
+            res.send({ "Message": `El rol ${rol.name} se ha añadido con éxito` })
         }
 
     } catch (error) {

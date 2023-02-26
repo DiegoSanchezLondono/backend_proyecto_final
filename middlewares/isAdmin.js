@@ -11,12 +11,11 @@ const  User  = require('../models/user.js');
     User.findOne({
 
         //..un usuario con esa id
-       name : 'diego'
+       rol : 'diego'
        //Si lo encuentro..
     }).then(foundUser => {
-       console.log(foundUser, 'Usuarioaaa');
        //..y su rol es admin...
-        if(foundUser.rol == "admin"){
+        if(foundUser.rol !== "admin"){
 
             //..finaliza el middleware y continuará ejecutando el endpoint donde lo pongamos
             next();

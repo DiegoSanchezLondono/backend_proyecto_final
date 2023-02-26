@@ -9,16 +9,14 @@ const VideosController = {};
 
 VideosController.newVideo = async (req, res) => {
 
-    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
-
     try {
         let video = await Video.create({
-           name: req.body.name,
-           date: req.body.date
+           title: req.body.title,
+           fecha: new Date (req.body.fecha)
         })
 
         if (video) {
-            res.send({ "Message": `El video ${video.name} se ha añadido con éxito` })
+            res.send({ "Message": `El video ${video.title} se ha añadido con éxito` })
         }
     } catch (error) {
         res.send({ "message": `Hubo un error al registrar el video, intentelo de nuevo` })
