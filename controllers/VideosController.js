@@ -25,6 +25,7 @@ VideosController.newVideo = async (req, res) => {
 
 };
 VideosController.getAllVideos = async (req, res) => {
+
     try {
         let result = await Video.find({});
 
