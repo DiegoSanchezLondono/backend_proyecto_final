@@ -39,20 +39,20 @@ VideosController.getAllVideos = async (req, res) => {
         // console.log(error);
     }
 }
-VideosController.postVideoById = async (req, res) => {
+VideosController.deleteVideo = async (req, res) => {
+    let _id = req.body._id;
 
-      //Este id es el id que ha venido por parámetro en el endpoint (url)
-      let _id = req.body._id;
-      try {
-          const _idok = await Video.find({_id: _id});
-          res.send({ "Msg": _idok});
-      
-      } catch (error) {
-          res.send({"Message": `No se han encontrado videos con este id ${_id}, Introduzca un id correcto`})
-      }
+    try {
+        
+        let result = await Video.findByIdAndDelete(_id);
 
-};
-
+        res.send({"Message": `El video ${result.title} se ha eliminado con éxito`})
+        
+    } catch (error) {
+        res.send({"message": `Error al eliminar el video`, error});
+       
+    }
+}
 
 //Exporto UsersController para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
 module.exports = VideosController;

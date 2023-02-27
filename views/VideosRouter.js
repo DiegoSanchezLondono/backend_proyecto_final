@@ -11,14 +11,11 @@ const isAdmin = require('../middlewares/isAdmin');
 
 const VideosController = require('../controllers/VideosController');
 
-//Endpoints
-
-router.post("/id",VideosController.postVideoById);
-
 //Endpoints con middleware auth
 
 router.post("/register",auth, VideosController.newVideo); 
 router.get("/",auth, VideosController.getAllVideos);
+router.delete("/",auth, VideosController.deleteVideo);
 
 
 //Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
