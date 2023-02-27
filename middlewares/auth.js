@@ -14,10 +14,9 @@
          //Si no lo tiene, no dejará ejecutar la función controladora del endpoint (ver en usuarioRouter) y envía un mensaje de que no hay acceso
          res.status(401).json({ msg: "Acceso o peticion no autorizado, debe registrarse para poder finalizar la peticion" });
      } else {
- 
          // Si lo tiene, Lo extrae
          let token = req.headers.authorization.split(" ")[1];
-    
+     
          // Y comprueba su validez usando la clave de encriptación que tenemos en ../config/auth
          jsonwebtoken.verify(token, authConfig.SECRET, (error, decoded) => {
              //Si la validación es incorrecta...
@@ -32,7 +31,7 @@
                  
                  //Activa el next() del middleware que actúa como un return, haciendo el que continúe en el endpoint donde lo metimos, y ejecutando así su función controladora
                  next();
-             }
+            }
          })
      }
  };

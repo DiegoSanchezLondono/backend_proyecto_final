@@ -25,8 +25,8 @@ const userSchema = new Schema ({
         type: String,
         required: true
     },
-    rolId: {
-        type: Schema.Types.ObjectId, ref: 'Role',
+    rol: {
+        type: String,
         required: true
     },
 

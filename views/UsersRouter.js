@@ -18,9 +18,9 @@ router.post("/login", UsersController.loginUser);
 
 //Endpoints con middleware auth
 
-router.get("/",auth, UsersController.getAllUsers);
+router.get("/",auth, isAdmin, UsersController.getAllUsers);
 router.put("/",auth, UsersController.updateUser);
-router.delete("/", auth, UsersController.deleteUser);
+router.delete("/",auth, isAdmin, UsersController.deleteUser);
 
 //Endpoints con middleware auth/isAdmin
 
