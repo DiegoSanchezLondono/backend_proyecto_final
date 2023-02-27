@@ -12,14 +12,15 @@ VideosController.newVideo = async (req, res) => {
     try {
         let video = await Video.create({
            title: req.body.title,
-           fecha: new Date (req.body.fecha)
+           summary: req.body.summary,
+           date: req.body.date
         })
 
         if (video) {
             res.send({ "Message": `El video ${video.title} se ha añadido con éxito` })
         }
     } catch (error) {
-        res.send({ "message": `Hubo un error al registrar el video, intentelo de nuevo` })
+        res.send({error,  "message": `Hubo un error al registrar el video, intentelo de nuevo` })
     }
 
 };

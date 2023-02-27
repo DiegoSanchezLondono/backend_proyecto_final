@@ -7,6 +7,10 @@ const videoSchema = new Schema ({
         type: String,
         required: true,
     },
+    summary: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
         required: true,
