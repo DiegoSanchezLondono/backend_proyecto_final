@@ -51,7 +51,7 @@ UsersController.deleteUser = async (req, res) => {
     let userAdmin = req.user.usuario[0];
 
     try {
-        if (userAdmin.email === email) {
+        if (userAdmin.email == email) {
             let deleted = await User.findOneAndDelete({
                 email: email
             })
@@ -84,7 +84,7 @@ UsersController.newUser = async (req, res) => {
         })
         if (user) {
           
-            res.send({ "Message": `El usuario ${user.name} se ha añadido con éxito` })
+            res.send({ "Message": `El usuario ${user.name} ${user.surname} se ha añadido con éxito` })
         }
 
     } catch (error) {
