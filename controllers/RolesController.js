@@ -1,25 +1,12 @@
 
 const Role = require('../models/role');
 const bcrypt = require('bcrypt');
+const jsonwebtoken = require('jsonwebtoken');
 
 const authConfig = require('../config/auth');
 
 const RolesController = {};
 
-RolesController.getAllRoles = async (req, res) => {
-    let rol = req.body.rol;
-    try {
-        let rol = await rol.find({});
-        if (rol !== '') {
-            res.send(rol)
-        } else {
-            res.send({ "Message": "Lo sentimos, no hemos encontrado ningún usuario con ese Rol." })
-        }
-    } catch (error) {
-        res.send({ "message": `Ha habido algun error` });
-         // console.log(error);
-    }
-}
 RolesController.newRol = async (req, res) => {
     
     try {

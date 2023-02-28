@@ -14,7 +14,6 @@ const RolesController = require('../controllers/RolesController');
 
 //Endpoints con middleware auth/isAdmin
 
-router.get("/",auth, isAdmin, RolesController.getAllRoles);
 router.post("/register",auth, RolesController.newRol); 
 
 //Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
