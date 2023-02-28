@@ -1,7 +1,6 @@
 
 const Role = require('../models/role');
 const bcrypt = require('bcrypt');
-const jsonwebtoken = require('jsonwebtoken');
 
 const authConfig = require('../config/auth');
 
@@ -21,19 +20,15 @@ RolesController.getAllRoles = async (req, res) => {
          // console.log(error);
     }
 }
-RolesController.rolAdmin = async (req, res) => {
-    let name = req.body.rol;
-    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
-
+RolesController.newRol = async (req, res) => {
+    
     try {
-
-        let rol = await rol.create({
-           name:name,
-           password:password
+        let rol= await Role.create({
+            rol: req.body.rol
         })
 
         if (rol) {
-            res.send({ "Message": `El rol ${rol.name} se ha añadido con éxito` })
+            res.send({ "Message": `El rol ${rol.rol} se ha añadido con éxito` })
         }
 
     } catch (error) {

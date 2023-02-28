@@ -25,11 +25,10 @@ const userSchema = new Schema ({
         type: String,
         required: true
     },
-    rol: {
-        type: String,
+    rolId: {
+        type: Schema.Types.ObjectId, ref: 'Role',
         required: true
-    },
-
+    }
 });
 
 const User = mongoose.model("User", userSchema);

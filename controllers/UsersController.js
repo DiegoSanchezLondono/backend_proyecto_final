@@ -72,7 +72,6 @@ UsersController.deleteUser = async (req, res) => {
 UsersController.newUser = async (req, res) => {
 
     let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
-
     try {
 
         let user = await User.create({
@@ -81,10 +80,10 @@ UsersController.newUser = async (req, res) => {
             email: req.body.email,
             password: password,
             country: req.body.country,
-            rol: req.body.rol
+            rolId: req.body.rolId
         })
-
         if (user) {
+          
             res.send({ "Message": `El usuario ${user.name} se ha añadido con éxito` })
         }
 
