@@ -1,71 +1,77 @@
 
 const Pictogram = require('../models/pictogram');
-const bcrypt = require('bcrypt');
-const jsonwebtoken = require('jsonwebtoken');
 
-const authConfig = require('../config/auth');
 
 const PictogramsController = {};
 
-PictogramsController.newPictogram = async (req, res) => {
-    let _id = req.body._id;
-    let user = req.user.usuario[0];
-    try {
-        // if(_id !== user._id){
-        //     let pictogram = await Pictogram.create({
-        //         keyword: req.body.keyword,
-        //         meaning: req.body.meaning,
-        //         categories: req.body.categories,
-        //         tags: req.body.tags
-        //     })
-
-        if (_id !== user._id){
-            fetch("https://api.arasaac.org/api/pictograms/all/es")
-            .then(res => res.json())
-            .then(data => {
-                data.forEach(pictogram => {
-                    //pictogram._id, pictogram.keywords[0].keyword
-                    console.log(pictogram._id, pictogram.keywords[0].keyword)
-                
-            })
-        })
+PictogramsController.savePictograms = async () => {
     
+        fetch("https://api.arasaac.org/api/pictograms/all/es")
+        .then(res => res.json()) //aqui convierto el archivo a json
+        .then(data => { //aqui iteramos e imprimimos por consola los datos 
+            data.forEach(pictogram => {
+                let patata = {id : pictogram._id, keyword : pictogram.keywords[0].keyword}
+                // console.log(pictogram._id, pictogram.keywords[0].keyword);
+                PictogramsController.newPictogram(patata);
+            })
+            
+        })
+        .catch(error => console.log('Solicitud Fallida', error));
+};
+PictogramsController.newPictogram = async (req, res) => {
+
+    try {
+        req.forEach(pictogram => {
+            console.log(pictogram, 'estamos aqui')
+            Pictogram.create()
+        })
             if (Pictogram) {
-                res.send({ "Message": `El pictograma ${Pictogram._id} se ha añadido con éxito` })
+                res.send({ "Message": `El pictograma ${Pictogram.keyword} se ha añadido con éxito` })
             }else {
                 res.send({"Message": "No hemos encontrado el pictograma a añadir"});
             }
-        }else{
-            res.send({"Message": `No es posible añadir pictogramas`});
-    
-        }
         }catch (error) {
         res.send({ "message": `No puede ejecutar esta acción` })
     }
 
 };
+
 PictogramsController.getAllPictograms = async (req, res) => {
     try {
-         let result = await Pictogram.find({});
-
-        //if (result.length > 0) {
-        //     res.send(result)
-        // } else {
-        //     res.send({ "Message": "Lo sentimos, no hemos encontrado ningún pictograma." })
-        // }
-        fetch("https://api.arasaac.org/api/pictograms/all/es")
-    .then(res => res.json())
-    .then(data => {
-        data.forEach(pictogram => {
-            //pictogram._id, pictogram.keywords[0].keyword
-            console.log(result)
-        });
-    })
+      const pictograms = await Pictogram.find();
+      res.status(200).json(pictograms);
     } catch (error) {
-        res.send({"message": `Ha habido algun error`});
-        // console.log(error);
+      console.log(error);
     }
-}
+  };
+// PictogramsController.getAllPictograms = async (req, res) => {
+//     try {
+//     //      let result = await Pictogram.find({})
+           
+//     //     if (result.length > 0) {
+//     //          res.send(result)
+//     //      } else {
+//     //          res.send({ "Message": "Lo sentimos, no hemos encontrado ningún pictograma." })
+//     //      }
+
+//     // } catch (error) {
+//     //     res.send({"message": `Ha habido algun error`});
+//     //     // console.log(error);
+//     // }
+//     console.log('aqui entra',req.query)
+//     const filter = {};
+
+//     if(req.query._id) filter.title = req.query._id;
+
+//     const resultado = await Pictogram.find(filter);
+
+//     res.json(resultado);
+// }catch(e){
+//     res.json({error, "message": 'ha ocurrido un error'}); // es mejor que un console.log que solo lo ve el programador,
+//     //el usuario necesita una respuesta
+// }
+
+// }
 PictogramsController.postPictogramById = async (req, res) => {
 
       //Este id es el id que ha venido por parámetro en el endpoint (url)

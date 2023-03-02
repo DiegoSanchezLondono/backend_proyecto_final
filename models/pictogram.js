@@ -5,19 +5,19 @@ const Schema = mongoose.Schema;
 const pictogramSchema = new Schema ({
      keyword: {
           type: String,
-          required: true
+          required: false
      },
      meaning: {
           type: String,
-          required: true
+          required: false
      },
      categories: {
         type: Array,
-        required: true
+        required: false
      },
      tags: {
         type: Array,
-        required: true
+        required: false
      }
 });
 
