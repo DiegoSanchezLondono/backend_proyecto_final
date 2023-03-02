@@ -22,7 +22,7 @@ PictogramsController.newPictogram = async (req, res) => {
 
     try {
         req.forEach(pictogram => {
-            console.log(pictogram, 'estamos aqui')
+            console.log(pictogram, 'hola estamos aqui')
             Pictogram.create()
         })
             if (Pictogram) {
