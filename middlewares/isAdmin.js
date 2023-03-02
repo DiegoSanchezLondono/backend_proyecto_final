@@ -4,11 +4,11 @@ const  User  = require('../models/user.js');
 //Exporto la función middleware
 module.exports = (req, res, next) => {
      //Capturo el email de usuario que nos llega por body
-       let email = req.body.email;
+       let _id = req.user._id;
     //Busco en la tabla Usuarios..
      User.find({
          //..un usuario con ese email
-       email: email
+       id: _id
         //Si lo encuentro..
     }).then(foundUser => { 
 // console.log(foundUser, 'patata');

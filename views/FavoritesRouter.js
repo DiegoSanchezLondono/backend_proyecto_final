@@ -12,7 +12,7 @@ const FavoritesController = require('../controllers/FavoritesController');
 
 //Endpoints
 
-router.post("/newFavorite", auth, FavoritesController.newFavorite);
+router.post("/register", auth, isAdmin, FavoritesController.newFavorite);
 router.get("/", auth, isAdmin, FavoritesController.getAllFavorites);
 router.post("/userFavorites/:id", auth, FavoritesController.postUserFavorites);
 

@@ -11,16 +11,27 @@ PictogramsController.newPictogram = async (req, res) => {
     let _id = req.body._id;
     let user = req.user.usuario[0];
     try {
-        if(_id !== user._id){
-            let pictogram = await Pictogram.create({
-                keyword: req.body.keyword,
-                meaning: req.body.meaning,
-                categories: req.body.categories,
-                tags: req.body.tags
+        // if(_id !== user._id){
+        //     let pictogram = await Pictogram.create({
+        //         keyword: req.body.keyword,
+        //         meaning: req.body.meaning,
+        //         categories: req.body.categories,
+        //         tags: req.body.tags
+        //     })
+
+        if (_id !== user._id){
+            fetch("https://api.arasaac.org/api/pictograms/all/es")
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(pictogram => {
+                    //pictogram._id, pictogram.keywords[0].keyword
+                    console.log(pictogram._id, pictogram.keywords[0].keyword)
+                
             })
+        })
     
-            if (pictogram) {
-                res.send({ "Message": `El pictograma ${pictogram.keyword} se ha añadido con éxito` })
+            if (Pictogram) {
+                res.send({ "Message": `El pictograma ${Pictogram._id} se ha añadido con éxito` })
             }else {
                 res.send({"Message": "No hemos encontrado el pictograma a añadir"});
             }
@@ -35,13 +46,21 @@ PictogramsController.newPictogram = async (req, res) => {
 };
 PictogramsController.getAllPictograms = async (req, res) => {
     try {
-        let result = await Pictogram.find({});
+         let result = await Pictogram.find({});
 
-        if (result.length > 0) {
-            res.send(result)
-        } else {
-            res.send({ "Message": "Lo sentimos, no hemos encontrado ningún usuario." })
-        }
+        //if (result.length > 0) {
+        //     res.send(result)
+        // } else {
+        //     res.send({ "Message": "Lo sentimos, no hemos encontrado ningún pictograma." })
+        // }
+        fetch("https://api.arasaac.org/api/pictograms/all/es")
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(pictogram => {
+            //pictogram._id, pictogram.keywords[0].keyword
+            console.log(result)
+        });
+    })
     } catch (error) {
         res.send({"message": `Ha habido algun error`});
         // console.log(error);

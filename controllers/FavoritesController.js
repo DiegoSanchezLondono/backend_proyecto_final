@@ -1,32 +1,29 @@
 
 const Favorite = require('../models/favorite');
 
-// const jsonwebtoken = require('jsonwebtoken');
-
-// const authConfig = require('../config/auth');
-
 const FavoritesController = {};
 
 
 FavoritesController.newFavorite = async (req, res) => {
-
+   
     try {
 
         let user = await Favorite.create({
             userId: req.body.idUser,
             pictogramId: req.body.idPictogram,
             videoId: req.body.idVideo,
-            fecha: new Date (req.body.fecha)
+            date: req.body.date
         })
 
         if (user) {
-            res.send({ "Message": `Ha sido añadido a favoritos con éxito` });
-
+            res.status(201).send({ "Message": `Ha sido añadido a favoritos con éxito` });
+            
         }else {
             res.send({ "Message": `Ha habido un error al añadir a favoritos` });
         }
     } catch (error) {
-        console.log(error)
+        
+        res.status(404).send({"message": `ha habido un error`, error})
     }
 
 };
