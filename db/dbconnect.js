@@ -20,9 +20,9 @@ const dbconnect = () => {
             useUnifiedTopology: true 
         },(err) => {
             if (err) {
-                console.log("error connecting to the database",err);
+                console.log("error sl conectarse a la BD",err);
             } else {
-                console.log("mongodb database is connected");
+                console.log("BD de mongodb esta conectada correctamente");
         }});
 
 

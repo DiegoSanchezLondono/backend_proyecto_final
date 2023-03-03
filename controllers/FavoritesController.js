@@ -16,7 +16,7 @@ FavoritesController.newFavorite = async (req, res) => {
         })
 
         if (user) {
-            res.status(201).send({ "Message": `Ha sido añadido a favoritos con éxito` });
+            res.status(200).send({ "Message": `Ha sido añadido a favoritos con éxito` });
             
         }else {
             res.send({ "Message": `Ha habido un error al añadir a favoritos` });

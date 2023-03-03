@@ -1,7 +1,5 @@
 
 const Pictogram = require('../models/pictogram');
-
-
 const PictogramsController = {};
 
 PictogramsController.savePictograms = async () => {
