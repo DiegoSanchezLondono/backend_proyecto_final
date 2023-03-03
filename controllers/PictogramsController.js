@@ -4,11 +4,12 @@ const PictogramsController = {};
 
 PictogramsController.savePictograms = async () => {
     
-        fetch("https://api.arasaac.org/api/pictograms/all/es")
+    let val = _id; //id
+        fetch(`https://api.arasaac.org/api/pictograms/all/es/${val}`)
         .then(res => res.json()) //aqui convierto el archivo a json
         .then(data => { //aqui iteramos e imprimimos por consola los datos 
             data.forEach(pictogram => {
-                let patata = {id : pictogram._id, keyword : pictogram.keywords[0].keyword}
+                let patata = {id : pictogram._id}
                 // console.log(pictogram._id, pictogram.keywords[0].keyword);
                 PictogramsController.newPictogram(patata);
             })

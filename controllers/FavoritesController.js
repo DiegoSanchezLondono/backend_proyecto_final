@@ -12,7 +12,8 @@ FavoritesController.newFavorite = async (req, res) => {
             userId: req.body.idUser,
             pictogramId: req.body.idPictogram,
             videoId: req.body.idVideo,
-            date: req.body.date
+            date: req.body.date,
+            name: req.body.name
         })
 
         if (user) {
