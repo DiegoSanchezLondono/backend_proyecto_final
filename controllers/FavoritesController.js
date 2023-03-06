@@ -1,19 +1,16 @@
 
 const Favorite = require('../models/favorite');
-
+const ObjectId = require('mongoose').Types.ObjectId;
 const FavoritesController = {};
 
 
-FavoritesController.newFavorite = async (req, res) => {
+FavoritesController.newFavoritePictogram = async (req, res) => {
    
     try {
 
         let user = await Favorite.create({
-            userId: req.body.idUser,
+            userId: req.userId,
             pictogramId: req.body.idPictogram,
-            videoId: req.body.idVideo,
-            date: req.body.date,
-            name: req.body.name
         })
 
         if (user) {
@@ -28,15 +25,50 @@ FavoritesController.newFavorite = async (req, res) => {
     }
 
 };
-FavoritesController.getAllFavorites = async (req, res) => {
 
+FavoritesController.newFavoriteVideo = async (req, res) => {
+   
     try {
 
-        let result = await Favorite.find({})
-             .populate('userId')
-             .populate('pictogramId')
-             .populate('videoId');
+        let user = await Favorite.create({
+            userId: req.userId,
+            videoId: req.body.idVideo,
+        })
 
+        if (user) {
+            res.status(200).send({ "Message": `Ha sido añadido a favoritos con éxito` });
+            
+        }else {
+            res.send({ "Message": `Ha habido un error al añadir a favoritos` });
+        }
+    } catch (error) {
+        
+        res.status(404).send({"message": `ha habido un error`, error})
+    }
+
+};
+
+FavoritesController.getAllFavoritesUser = async (req, res) => {
+
+    try {
+        let {type} = req.query;
+        let result = [];
+        console.log(type);
+        if(type == 'pictogram'){
+            result = await Favorite.find({
+                userId: ObjectId(req.userId),
+                pictogramId: {$ne: null},
+            })
+        }else if(type == 'video'){
+            result = await Favorite.find({
+                userId: ObjectId(req.userId),
+                ideoId: {$ne: null},
+            })
+        }else{
+            result = await Favorite.find({
+                userId: ObjectId(req.userId),
+            })
+        }
         if (result.length > 0) {
             res.send(result)
         } else {

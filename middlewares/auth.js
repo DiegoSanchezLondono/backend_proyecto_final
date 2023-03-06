@@ -26,8 +26,8 @@
                  //Si la validación es correcta...
              } else {
                  //En req.user guardamos el usuario decodificado correctamente
-                 
-                 req.user = decoded;
+                //  console.log('jhjhj', decoded);
+                 req.userId = decoded.usuario[0]._id;
                  
                  //Activa el next() del middleware que actúa como un return, haciendo el que continúe en el endpoint donde lo metimos, y ejecutando así su función controladora
                  next();
