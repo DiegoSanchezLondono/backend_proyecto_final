@@ -17,7 +17,7 @@ router.post("/id",PictogramsController.postPictogramById);
 
 //Endpoints con middleware auth/isAdmin
 
-router.post("/save",auth, isAdmin, PictogramsController.savePictograms); 
+router.post("/data",auth, isAdmin, PictogramsController.dataPictograms); 
 router.post("/register",auth, isAdmin, PictogramsController.newPictogram); 
 router.get("/",auth, isAdmin, PictogramsController.getAllPictograms);
 

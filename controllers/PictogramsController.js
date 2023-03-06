@@ -2,15 +2,16 @@
 const Pictogram = require('../models/pictogram');
 const PictogramsController = {};
 
-PictogramsController.savePictograms = async () => {
+PictogramsController.dataPictograms = async () => {
     
-    let val = _id; //id
-        fetch(`https://api.arasaac.org/api/pictograms/all/es/${val}`)
+    // let val = _id//id
+        // fetch(`https://api.arasaac.org/api/pictograms/${val}`)
+        fetch(`https://api.arasaac.org/api/pictograms/_id`)
         .then(res => res.json()) //aqui convierto el archivo a json
         .then(data => { //aqui iteramos e imprimimos por consola los datos 
             data.forEach(pictogram => {
-                let patata = {id : pictogram._id}
-                // console.log(pictogram._id, pictogram.keywords[0].keyword);
+                let patata = {pictogram : pictogram._id}
+                console.log(pictogram._id);
                 PictogramsController.newPictogram(patata);
             })
             
@@ -22,7 +23,7 @@ PictogramsController.newPictogram = async (req, res) => {
     try {
         req.forEach(pictogram => {
             console.log(pictogram, 'hola estamos aqui')
-            Pictogram.create()
+            Pictogram.create(patata)
         })
             if (Pictogram) {
                 res.send({ "Message": `El pictograma ${Pictogram.keyword} se ha añadido con éxito` })
