@@ -11,14 +11,12 @@ const isAdmin = require('../middlewares/isAdmin');
 
 const PictogramsController = require('../controllers/PictogramsController');
 
-//Endpoints
-
-router.post("/id",PictogramsController.postPictogramById);
+router.post("/data_id",auth, PictogramsController.postPictogramById);
 
 //Endpoints con middleware auth/isAdmin
 
 router.post("/register",auth, isAdmin, PictogramsController.newPictogram); 
-router.get("/",auth, isAdmin, PictogramsController.getAllPictograms);
+router.get("/",auth, PictogramsController.getAllPictograms);
 
 
 //Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)

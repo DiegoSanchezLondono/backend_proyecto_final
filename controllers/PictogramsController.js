@@ -6,12 +6,16 @@ const PictogramsController = {};
 PictogramsController.newPictogram = async (req, res) => {
 
     try {
-        req.forEach(pictogram => {
-            console.log(pictogram, 'hola estamos aqui')
-            Pictogram.create(patata)
+        let pictogram = await Pictogram.create({
+            data_id: req.body.data_id,
+            keyword: req.body.keyword,
+            meaning: req.body.meaning,
+            categories: req.body.categories,
+            tags: req.body.tags
         })
-            if (Pictogram) {
-                res.send({ "Message": `El pictograma ${Pictogram._id} se ha añadido con éxito` })
+ 
+            if (pictogram) {
+                res.send({ "Message": `El pictograma ${pictogram.data_id} se ha añadido con éxito` })
             }else {
                 res.send({"Message": "No hemos encontrado el pictograma a añadir"});
             }
@@ -22,12 +26,19 @@ PictogramsController.newPictogram = async (req, res) => {
 };
 
 PictogramsController.getAllPictograms = async (req, res) => {
-    try {
-      const pictograms = await Pictogram.find();
-      res.status(200).json(pictograms);
-    } catch (error) {
-      console.log(error);
-    }
+
+        try {
+            let result = await Pictogram.find({});
+    
+            if (result.length > 0) {
+                res.send(result)
+            } else {
+                res.send({ "Message": "Lo sentimos, no hemos encontrado ningún pictograma." })
+            }
+        } catch (error) {
+            res.send({"message": `Ha habido algun error`});
+            // console.log(error);
+        }
   };
 // PictogramsController.getAllPictograms = async (req, res) => {
 //     try {
@@ -60,13 +71,13 @@ PictogramsController.getAllPictograms = async (req, res) => {
 PictogramsController.postPictogramById = async (req, res) => {
 
       //Este id es el id que ha venido por parámetro en el endpoint (url)
-      let _id = req.body._id;
+      let data_id = req.body.data_id;
       try {
-          const _idok = await Pictogram.find({_id: _id});
+          const _idok = await Pictogram.find({data_id: data_id});
           res.send({ "Msg": _idok});
       
       } catch (error) {
-          res.send({"Message": `No se han encontrado pictrogramas con este id ${_id}, Introduzca un id correcto`})
+          res.send({"Message": `No se han encontrado pictrogramas con este id ${data_id}, Introduzca un id correcto`})
       }
 
 };

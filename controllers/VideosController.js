@@ -1,9 +1,5 @@
 
 const Video = require('../models/video');
-const bcrypt = require('bcrypt');
-const jsonwebtoken = require('jsonwebtoken');
-
-const authConfig = require('../config/auth');
 
 const VideosController = {};
 

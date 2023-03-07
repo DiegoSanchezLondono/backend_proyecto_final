@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pictogramSchema = new Schema ({
-     _id: {
+     data_id: {
           type: Number,
           required: false,
      },
