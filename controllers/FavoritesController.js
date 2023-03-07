@@ -53,7 +53,7 @@ FavoritesController.getAllFavoritesUser = async (req, res) => {
     try {
         let {type} = req.query;
         let result = [];
-        console.log(type);
+        // console.log(type);
         if(type == 'pictogram'){
             result = await Favorite.find({
                 userId: ObjectId(req.userId),

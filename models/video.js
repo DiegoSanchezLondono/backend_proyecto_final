@@ -11,8 +11,13 @@ const videoSchema = new Schema ({
         type: String,
         required: true,
     },
+    url: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
+        default: Date.now,
         required: true,
     }
 });

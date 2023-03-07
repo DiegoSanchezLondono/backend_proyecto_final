@@ -13,7 +13,7 @@ VideosController.newVideo = async (req, res) => {
         let video = await Video.create({
            title: req.body.title,
            summary: req.body.summary,
-           date: req.body.date
+           url: req.body.url
         })
 
         if (video) {
