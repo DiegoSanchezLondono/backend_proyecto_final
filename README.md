@@ -67,7 +67,7 @@ http://localhost:5500/videos
 http://localhost:5500/favorites/pictogram
 - router.post("/video", auth, FavoritesController.newFavoriteVideo); Con este Endpoint el usuario podrá agregar un video a su lista de favoritos, Las URL de los videos se copian de YOUTUBE.
 http://localhost:5500/favorites/video
-- router.get("/", auth, FavoritesController.getAllFavoritesUser); Con este Endpoint el usuario podrá ver su lista de favoritos tanto de videos como de pictogramas un video a su lista de favoritos, especificando el tipo, si es video o pictograma, todo por params. Las URL de los videos se copian de YOUTUBE y Los pictogramas se traen de una API externa de ARASAAC.
+- router.get("/", auth, FavoritesController.getAllFavoritesUser); Con este Endpoint el usuario podrá ver su lista de favoritos tanto de videos como de pictogramas, especificando el tipo, si es video o pictograma, todo por params. Las URL de los videos se copian de YOUTUBE y Los pictogramas se traen de una API externa de ARASAAC.
 http://localhost:5500/favorites?type=pictogram
 http://localhost:5500/favorites?type=video
 
