@@ -13,9 +13,7 @@ const VideosController = require('../controllers/VideosController');
 
 //Endpoints
 router.get("/title/:title", VideosController.getVideosByTitle);
-
-//Endpoint con middleware auth
-router.get("/",auth, VideosController.getVideos);
+router.get("/", VideosController.getAllVideos);
 
 //Endpoints con middleware auth/isAdmin
 router.post("/register",auth, isAdmin, VideosController.newVideo); 

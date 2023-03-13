@@ -19,6 +19,9 @@ const videoSchema = new Schema ({
         type: Date,
         default: Date.now,
         required: true,
+    },
+    idYoutube: {
+        type: String,
     }
 });
 
