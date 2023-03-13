@@ -11,10 +11,14 @@ const isAdmin = require('../middlewares/isAdmin');
 
 const VideosController = require('../controllers/VideosController');
 
-//Endpoints con middleware auth/isAdmin
+//Endpoints
+router.get("/title/:title", VideosController.getVideosByTitle);
 
+//Endpoint con middleware auth
+router.get("/",auth, VideosController.getVideos);
+
+//Endpoints con middleware auth/isAdmin
 router.post("/register",auth, isAdmin, VideosController.newVideo); 
-router.get("/",auth, VideosController.getAllVideos);
 router.delete("/",auth, isAdmin, VideosController.deleteVideo);
 
 

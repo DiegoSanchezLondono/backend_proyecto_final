@@ -20,7 +20,7 @@ VideosController.newVideo = async (req, res) => {
     }
 
 };
-VideosController.getAllVideos = async (req, res) => {
+VideosController.getVideos = async (req, res) => {
 
     try {
         let result = await Video.find({});
@@ -33,6 +33,23 @@ VideosController.getAllVideos = async (req, res) => {
     } catch (error) {
         res.send({"message": `Ha habido algun error`});
         // console.log(error);
+    }
+}
+VideosController.getVideosByTitle = async (req, res) => {
+    // Person.find({ "name": { "$regex": "Alex", "$options": "i" } },
+    const title = req.params.title;
+    try {
+        const foundVideos = await Video.find({
+            'title' :{"$regex": title, "$options": "i"},
+
+        })
+        if(foundVideos.length === 0){
+            res.send({"message": `El video ${title} no se ha encontrado, compruebe que este bien escrito el nombre`});
+        }else{
+            res.send(foundVideos)
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 VideosController.deleteVideo = async (req, res) => {
