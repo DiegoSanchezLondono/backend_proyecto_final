@@ -12,7 +12,7 @@ UsersController.getAllUsers = async (req, res) => {
 
     try {
         let result = await User.find({})
-            // .populate('rolId');
+            .populate('rolId');
         if (result.length > 0) {
             res.send(result)
         } else {

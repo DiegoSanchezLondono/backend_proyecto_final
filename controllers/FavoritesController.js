@@ -4,13 +4,15 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const FavoritesController = {};
 
 
-FavoritesController.newFavoritePictogram = async (req, res) => {
+FavoritesController.newFavorite = async (req, res) => {
    
     try {
 
         let user = await Favorite.create({
             userId: req.userId,
-            pictogramId: req.body.idPictogram,
+            videoId: req.body.videoId,
+            pictogramId: req.body.pictogramId,
+            date: new Date()
         })
 
         if (user) {
@@ -25,29 +27,20 @@ FavoritesController.newFavoritePictogram = async (req, res) => {
     }
 
 };
-
-FavoritesController.newFavoriteVideo = async (req, res) => {
-   
+FavoritesController.getAllFavorites = async (req, res) => {
     try {
-
-        let user = await Favorite.create({
-            userId: req.userId,
-            videoId: req.body.idVideo,
-        })
-
-        if (user) {
-            res.status(200).send({ "Message": `Ha sido añadido a favoritos con éxito` });
-            
-        }else {
-            res.send({ "Message": `Ha habido un error al añadir a favoritos` });
+        let result = await Favorite.find({})
+            .populate('userId')
+            .populate('videoId')
+        if (result.length > 0) {
+            res.send(result)
+        } else {
+            res.send({ "Message": "Lo sentimos, no hemos encontrado ningún usuario." })
         }
     } catch (error) {
-        
-        res.status(404).send({"message": `ha habido un error`, error})
+        res.send({"message": `Ha habido algun error`});
     }
-
-};
-
+}
 FavoritesController.getAllFavoritesUser = async (req, res) => {
 
     try {
