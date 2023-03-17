@@ -11,8 +11,8 @@ const UsersController = {};
 UsersController.getAllUsers = async (req, res) => {
 
     try {
-        let result = await User.find({});
-
+        let result = await User.find({})
+            // .populate('rolId');
         if (result.length > 0) {
             res.send(result)
         } else {
@@ -73,14 +73,14 @@ UsersController.newUser = async (req, res) => {
 
     let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.ROUNDS));
     try {
-
+        rolId = req.body.rol = '63fe256905e1433d4e79ea39';
         let user = await User.create({
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,
             password: password,
             country: req.body.country,
-            rolId: req.body.rolId
+            rolId: rolId
         })
         if (user) {
           
