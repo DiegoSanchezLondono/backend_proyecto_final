@@ -32,6 +32,7 @@ FavoritesController.getAllFavorites = async (req, res) => {
         let result = await Favorite.find({})
             .populate('userId')
             .populate('videoId')
+            .populate('pictogramId')
         if (result.length > 0) {
             res.send(result)
         } else {
@@ -43,10 +44,10 @@ FavoritesController.getAllFavorites = async (req, res) => {
 }
 FavoritesController.getAllFavoritesUser = async (req, res) => {
 
-    try {
-        let {type} = req.query;
-        let result = [];
-        // console.log(type);
+     try {
+         let {type} = req.query;
+         let result = [];
+//         // console.log(type);
         if(type == 'pictogram'){
             result = await Favorite.find({
                 userId: ObjectId(req.userId),
@@ -87,5 +88,6 @@ FavoritesController.postUserFavorites = async (req, res) => {
         console.log(error)
     }
 }
+
 //Exporto CarsController para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
 module.exports = FavoritesController;

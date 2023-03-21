@@ -36,7 +36,6 @@ VideosController.getAllVideos = async (req, res) => {
     }
 }
 VideosController.getVideosByTitle = async (req, res) => {
-    // Person.find({ "name": { "$regex": "Alex", "$options": "i" } },
     const title = req.params.title;
     try {
         const foundVideos = await Video.find({
