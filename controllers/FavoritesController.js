@@ -1,3 +1,4 @@
+const axios = require('axios');
 
 const Favorite = require('../models/favorite');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -7,14 +8,26 @@ const FavoritesController = {};
 FavoritesController.newFavorite = async (req, res) => {
    
     try {
-
-        let user = await Favorite.create({
+     let user;
+     let pictogram;
+        if(req.body.pictogramId){
+            pictogram = await axios.get(`https://api.arasaac.org/api/pictograms/es/${req.body.pictogramId}`);
+            user = await Favorite.create({
+                userId: req.userId,
+                videoId: req.body.videoId,
+                pictogramId: req.body.pictogramId,
+                pictogram: pictogram.data.keywords[0].keyword,
+                date: new Date()
+            })
+        }
+        else{ 
+            
+            user = await Favorite.create({
             userId: req.userId,
             videoId: req.body.videoId,
-            pictogramId: req.body.pictogramId,
             date: new Date()
-        })
-
+        })}
+     
         if (user) {
             res.status(200).send({ "Message": `Ha sido añadido a favoritos con éxito` });
             
@@ -23,7 +36,7 @@ FavoritesController.newFavorite = async (req, res) => {
         }
     } catch (error) {
         
-        res.status(404).send({"message": `ha habido un error`, error})
+        res.status(400).send({"message": `ha habido un error`, error})
     }
 
 };
@@ -43,25 +56,32 @@ FavoritesController.getAllFavorites = async (req, res) => {
     }
 }
 FavoritesController.getAllFavoritesUser = async (req, res) => {
-
+   
      try {
          let {type} = req.query;
          let result = [];
-//         // console.log(type);
+        
         if(type == 'pictogram'){
             result = await Favorite.find({
                 userId: ObjectId(req.userId),
                 pictogramId: {$ne: null},
-            })
+            })       
+            .populate('userId')
+            .populate('pictogramId')
         }else if(type == 'video'){
             result = await Favorite.find({
                 userId: ObjectId(req.userId),
                 videoId: {$ne: null},
             })
+            .populate('userId')
+            .populate('videoId')
         }else{
             result = await Favorite.find({
                 userId: ObjectId(req.userId),
             })
+            .populate('userId')
+            .populate('videoId')
+            .populate('pictogramId')
         }
         if (result.length > 0) {
             res.send(result)

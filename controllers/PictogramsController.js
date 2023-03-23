@@ -68,18 +68,10 @@ PictogramsController.getAllPictograms = async (req, res) => {
 // }
 
 // }
-PictogramsController.postPictogramById = async (req, res) => {
+PictogramsController.postPictogramById = async (_id) => {
 
-      //Este id es el id que ha venido por parámetro en el endpoint (url)
-      let data_id = req.body.data_id;
-      try {
-          const _idok = await Pictogram.find({data_id: data_id});
-          res.send({ "Msg": _idok});
-      
-      } catch (error) {
-          res.send({"Message": `No se han encontrado pictrogramas con este id ${data_id}, Introduzca un id correcto`})
-      }
-
+    return await axios.get(`https://api.arasaac.org/api/pictograms/${_id}`);
+     
 };
 
 

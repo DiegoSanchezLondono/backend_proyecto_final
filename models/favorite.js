@@ -9,6 +9,9 @@ const favoriteSchema = new Schema ({
     pictogramId: {
         type: String,
     },
+    pictogram:{
+        type: String,
+    },
     videoId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Video',
     },

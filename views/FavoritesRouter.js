@@ -13,7 +13,7 @@ const FavoritesController = require('../controllers/FavoritesController');
 //Endpoints
 
 router.post("/", auth, FavoritesController.newFavorite);
-router.get("/", auth, FavoritesController.getAllFavorites);
+router.get("/", auth, FavoritesController.getAllFavoritesUser);
 router.post("/userFavorites/:id", auth, FavoritesController.postUserFavorites);
 // router.get("/video", auth, FavoritesController.getVideoUserFavorite);
 // router.get("/pictogram", auth, FavoritesController.getPictogramUserFavorite);
