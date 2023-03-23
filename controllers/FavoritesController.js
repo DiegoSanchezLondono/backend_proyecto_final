@@ -56,7 +56,7 @@ FavoritesController.getAllFavoritesUser = async (req, res) => {
         }else if(type == 'video'){
             result = await Favorite.find({
                 userId: ObjectId(req.userId),
-                ideoId: {$ne: null},
+                videoId: {$ne: null},
             })
         }else{
             result = await Favorite.find({
@@ -87,6 +87,12 @@ FavoritesController.postUserFavorites = async (req, res) => {
     }catch (error) {
         console.log(error)
     }
+}
+FavoritesController.getVideoUserFavorite = async (req, res) => {
+
+}
+FavoritesController.getPictogramUserFavorite = async (req, res) => {
+
 }
 
 //Exporto CarsController para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)

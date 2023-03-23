@@ -15,7 +15,8 @@ const FavoritesController = require('../controllers/FavoritesController');
 router.post("/", auth, FavoritesController.newFavorite);
 router.get("/", auth, FavoritesController.getAllFavorites);
 router.post("/userFavorites/:id", auth, FavoritesController.postUserFavorites);
-// router.get("/user", auth, FavoritesController.getUserFavorites);
+// router.get("/video", auth, FavoritesController.getVideoUserFavorite);
+// router.get("/pictogram", auth, FavoritesController.getPictogramUserFavorite);
 
 //Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
 module.exports = router;
