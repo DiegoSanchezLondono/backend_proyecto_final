@@ -8,7 +8,6 @@ const router = express.Router();
 const auth = require('../middlewares/auth');
 const isAdmin = require('../middlewares/isAdmin');
 
-
 const PictogramsController = require('../controllers/PictogramsController');
 
 router.post("/data_id",auth, PictogramsController.postPictogramById);

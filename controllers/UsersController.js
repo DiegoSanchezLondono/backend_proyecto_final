@@ -20,7 +20,6 @@ UsersController.getAllUsers = async (req, res) => {
         }
     } catch (error) {
         res.send({"message": `Ha habido algun error`});
-        // console.log(error);
     }
 }
 UsersController.updateUser = async (req, res) => {
@@ -47,25 +46,22 @@ UsersController.updateUser = async (req, res) => {
     }
 }
 UsersController.deleteUser = async (req, res) => {
-    let email = req.body.email;
-    let userAdmin = req.user.usuario[0];
+
+    let _id = req.params._id;
 
     try {
-        if (userAdmin.email == email) {
+        
             let deleted = await User.findOneAndDelete({
-                email: email
+                _id: _id
             })
-
-            if (deleted) {
-                res.send({ "Message": `El usuario ${deleted.name} ${deleted.surname} se ha eliminado con éxito` })
-            } else {
-                res.send({ "Message": "No hemos encontrado al usuario a borrar" });
+            if(!deleted){
+                return res.send({message: 'Usuario no encontrado'})
+            }else{
+                res.send({message: 'Usuario eliminado con exito'})
             }
-        } else {
-            res.send({ "Message": `Eliminacion no posible` });
-        }
     } catch (error) {
-        res.send({ "Message": `Error al eliminar al usuario` });
+        console.log("Error al eliminar el usuario", error);
+
     }
 
 };

@@ -20,7 +20,7 @@ router.put("/",auth, UsersController.updateUser);
 
 //Endpoints con middleware auth/isAdmin
 router.get("/",auth, isAdmin, UsersController.getAllUsers);
-router.delete("/",auth, isAdmin, UsersController.deleteUser);
+router.delete("/:_id", UsersController.deleteUser);
 
 
 

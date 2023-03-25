@@ -108,12 +108,42 @@ FavoritesController.postUserFavorites = async (req, res) => {
         console.log(error)
     }
 }
-FavoritesController.getVideoUserFavorite = async (req, res) => {
+FavoritesController.deleteFavoriteVideo = async (req, res) => {
 
-}
-FavoritesController.getPictogramUserFavorite = async (req, res) => {
+    try {
+        let a = req.params;
+            let deleted = await Favorite.findOneAndDelete({
+                _id: a,
+            })
+            if(!deleted){
+                return res.send({message: 'Favorito no encontrado'})
+            }else{
+                res.send({message: 'Favorito eliminado con exito'})
+            }
+    } catch (error) {
+        console.log("Error al eliminar el favorito", error);
 
-}
+    }
 
+};
+
+FavoritesController.deleteFavoritePictogram = async (req, res) => {
+
+    try {
+        let a = req.params;
+            let deleted = await Favorite.findOneAndDelete({
+                _id: a,
+            })
+            if(!deleted){
+                return res.send({message: 'Favorito no encontrado'})
+            }else{
+                res.send({message: 'Favorito eliminado con exito'})
+            }
+    } catch (error) {
+        console.log("Error al eliminar el favorito", error);
+
+    }
+
+};
 //Exporto CarsController para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
 module.exports = FavoritesController;

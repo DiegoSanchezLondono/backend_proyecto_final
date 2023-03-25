@@ -15,6 +15,8 @@ const FavoritesController = require('../controllers/FavoritesController');
 router.post("/", auth, FavoritesController.newFavorite);
 router.get("/", auth, FavoritesController.getAllFavoritesUser);
 router.post("/userFavorites/:id", auth, FavoritesController.postUserFavorites);
+router.delete("/:_id", FavoritesController.deleteFavoriteVideo);
+router.delete("/pictogram/:_id", FavoritesController.deleteFavoritePictogram);
 // router.get("/video", auth, FavoritesController.getVideoUserFavorite);
 // router.get("/pictogram", auth, FavoritesController.getPictogramUserFavorite);
 
